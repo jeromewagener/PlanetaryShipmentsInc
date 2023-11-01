@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7w3dvmbbnthn"]
+
+[ext_resource type="Script" path="res://level1.gd" id="1_a3f7u"]
+[ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="1_wblqg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xkqbm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_omwy7"]
+sky_material = SubResource("ProceduralSkyMaterial_xkqbm")
+
+[sub_resource type="Environment" id="Environment_q5fy8"]
+background_mode = 2
+sky = SubResource("Sky_omwy7")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eca55"]
+size = Vector3(64, 36, 10)
+
+[node name="level1" type="Node3D"]
+script = ExtResource("1_a3f7u")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q5fy8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="player" parent="." instance=ExtResource("1_wblqg")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.584
+autostart = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_eca55")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwrmsc0rbglvo"]
+
+[ext_resource type="Script" path="res://spaceship/player.gd" id="1_ct7vo"]
+[ext_resource type="PackedScene" uid="uid://cchalw7jc6vwg" path="res://spaceship/spaceship.glb" id="1_xksot"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o7g7x"]
+
+[node name="player" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["player"]]
+axis_lock_linear_z = true
+mass = 0.01
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("1_ct7vo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_o7g7x")
+
+[node name="spaceship" parent="RigidBody3D" instance=ExtResource("1_xksot")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.951057, 0.309017, 0, -0.309017, 0.951057, 0, 6, 12)
