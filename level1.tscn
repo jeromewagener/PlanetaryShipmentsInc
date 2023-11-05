@@ -1,18 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7w3dvmbbnthn"]
+[gd_scene load_steps=8 format=3 uid="uid://b7w3dvmbbnthn"]
 
 [ext_resource type="Script" path="res://level1.gd" id="1_a3f7u"]
 [ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="1_wblqg"]
+[ext_resource type="Texture2D" uid="uid://cl486qmrg2deq" path="res://textures/skybox-simple-8k.jpg" id="2_8nrsi"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xkqbm"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jdoig"]
+panorama = ExtResource("2_8nrsi")
 
-[sub_resource type="Sky" id="Sky_omwy7"]
-sky_material = SubResource("ProceduralSkyMaterial_xkqbm")
+[sub_resource type="Sky" id="Sky_psl64"]
+sky_material = SubResource("PanoramaSkyMaterial_jdoig")
 
 [sub_resource type="Environment" id="Environment_q5fy8"]
 background_mode = 2
-sky = SubResource("Sky_omwy7")
+sky = SubResource("Sky_psl64")
 tonemap_mode = 2
 glow_enabled = true
 
