@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3525ukcwhcv2"]
+
+[ext_resource type="PackedScene" uid="uid://b05abos0e8fe3" path="res://asteroid/asteroid.glb" id="1_gblcj"]
+[ext_resource type="Shader" path="res://asteroid/asteroid.gdshader" id="2_lmec0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgdm5"]
+render_priority = 0
+shader = ExtResource("2_lmec0")
+shader_parameter/border_width = 0.13
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="asteroid" instance=ExtResource("1_gblcj")]
+
+[node name="Sphere" parent="." index="0"]
+material_override = SubResource("ShaderMaterial_mgdm5")

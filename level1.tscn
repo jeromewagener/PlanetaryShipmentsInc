@@ -36,9 +36,19 @@ wait_time = 4.584
 autostart = true
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_eca55")
+
+[node name="ScoreLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.6399, 0)
+billboard = 1
+modulate = Color(0.792157, 0.588235, 0.890196, 0.811765)
+outline_modulate = Color(0, 0, 0.458824, 1)
+text = "Score: 0"
+font_size = 250
+outline_size = 22
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

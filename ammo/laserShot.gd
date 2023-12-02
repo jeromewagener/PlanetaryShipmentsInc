@@ -1,4 +1,4 @@
-extends RigidBody3D
+extends StaticBody3D
 
-func _ready() -> void:
-	apply_force(Vector3.FORWARD * 10000)
+func _physics_process(delta: float) -> void:
+	translate(Vector3.FORWARD * 100 * delta)

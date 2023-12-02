@@ -1,21 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://447xx2kl6xgg"]
+[gd_scene load_steps=7 format=3 uid="uid://447xx2kl6xgg"]
 
 [ext_resource type="Script" path="res://asteroid/asteroid.gd" id="1_7w72b"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_jyuxm"]
+[ext_resource type="PackedScene" uid="uid://b05abos0e8fe3" path="res://asteroid/asteroid.glb" id="2_v7ymu"]
+[ext_resource type="AudioStream" uid="uid://byhydwmwyihni" path="res://audio/hit.wav" id="3_yra2a"]
+[ext_resource type="AudioStream" uid="uid://b4d5tqvbyh1b8" path="res://audio/explosion.wav" id="4_gyrfi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q6p6b"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_jyuxm"]
 
 [node name="asteroid" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 axis_lock_linear_y = true
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_7w72b")
+
+[node name="asteroid" parent="RigidBody3D" instance=ExtResource("2_v7ymu")]
+transform = Transform3D(6.5, 0, 0, 0, 6.5, 0, 0, 0, 6.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_q6p6b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("SphereMesh_jyuxm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-shape = SubResource("SphereShape3D_q6p6b")
+[node name="AsteroidHitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_yra2a")
+volume_db = 46.286
+
+[node name="AsteroidDestroyedSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_gyrfi")
+
+[connection signal="body_entered" from="RigidBody3D" to="RigidBody3D" method="_on_body_entered"]
