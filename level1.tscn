@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7w3dvmbbnthn"]
+[gd_scene load_steps=9 format=3 uid="uid://b7w3dvmbbnthn"]
 
 [ext_resource type="Script" path="res://level1.gd" id="1_a3f7u"]
 [ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="1_wblqg"]
 [ext_resource type="Texture2D" uid="uid://cl486qmrg2deq" path="res://textures/skybox-simple-8k.jpg" id="2_8nrsi"]
+[ext_resource type="Material" uid="uid://bnx0seohwheki" path="res://asteroid/blinking-wireframe-material-overlay.tres" id="2_jaabl"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jdoig"]
 panorama = ExtResource("2_8nrsi")
@@ -21,6 +22,7 @@ size = Vector3(64, 36, 10)
 
 [node name="level1" type="Node3D"]
 script = ExtResource("1_a3f7u")
+attentionShader = ExtResource("2_jaabl")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q5fy8")

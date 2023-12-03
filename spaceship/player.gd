@@ -61,8 +61,8 @@ func _process(delta: float) -> void:
 		rightShot.global_position = Vector3(rightLaser.global_position.x, rightLaser.global_position.y, rightLaser.global_position.z-1)
 		rightShot.rotation = Vector3(spaceship.rotation.x, spaceship.rotation.y, spaceship.rotation.z)
 		
-		print("x: " + str(spaceship.global_position.x) + " y: " + str(spaceship.global_position.y) + " z: " + str(spaceship.global_position.z))
-		print(str(clamp(abs(spaceship.global_position.x)*abs(spaceship.global_position.y-5.0),0,100)))
+		#print("x: " + str(spaceship.global_position.x) + " y: " + str(spaceship.global_position.y) + " z: " + str(spaceship.global_position.z))
+		#print(str(clamp(abs(spaceship.global_position.x)*abs(spaceship.global_position.y-5.0),0,100)))
 		
 		
 		#print("leftShot --> x: " + str(leftShot.position.x) + " y: " + str(leftShot.position.y) + " z: " + str(leftShot.position.z))
