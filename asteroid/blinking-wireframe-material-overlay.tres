@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bnx0seohwheki"]
+
+[ext_resource type="Shader" path="res://asteroid/asteroid.gdshader" id="1_vq1my"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vq1my")
+shader_parameter/border_width = 0.0980001

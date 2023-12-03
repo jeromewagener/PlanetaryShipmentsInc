@@ -1,16 +1,19 @@
 shader_type spatial;
 
-render_mode unshaded, cull_front;
+render_mode unshaded, wireframe, depth_test_disabled;
  
-uniform float border_width : hint_range(0,1,0.001);
-uniform vec4 color : source_color = vec4(1.0);
+uniform float border_width : hint_range(-1,1,0.001);
 
 void vertex() {
-	VERTEX += VERTEX * border_width;
+	VERTEX = (VERTEX * border_width) + VERTEX;
 }
 
 void fragment() {
-	ALBEDO = color.xyz;
+	vec3 warningGridColor;
+	warningGridColor.r =  (sin(TIME * 15.0) + 1.0) * 0.5;
+	warningGridColor.g = 0.1;
+	warningGridColor.b = 0.1;
+	ALBEDO = warningGridColor;
 }
 
 void light() {
