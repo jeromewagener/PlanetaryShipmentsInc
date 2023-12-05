@@ -27,8 +27,8 @@ func _process(delta: float) -> void:
 		var playerPosition: Vector3 = player.get_child(0).position;
 		
 		if (player != null 
-			and get_parent().position.x < playerPosition.x + 10 and get_parent().position.x > playerPosition.x - 10 
-			and get_parent().position.y < playerPosition.y + 10 and get_parent().position.y > playerPosition.y - 10):
+			and get_parent().position.x < playerPosition.x + 7.5 and get_parent().position.x > playerPosition.x - 7.5 
+			and get_parent().position.y < playerPosition.y + 7.5 and get_parent().position.y > playerPosition.y - 7.5):
 			asteroid_model.material_overlay = attentionShader
 		else:
 			#print("deactivateShader")
