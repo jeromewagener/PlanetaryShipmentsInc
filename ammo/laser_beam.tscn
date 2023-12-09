@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxxpcu4d1pn82"]
 
-[ext_resource type="Script" path="res://ammo/laserShot.gd" id="1_07oye"]
+[ext_resource type="Script" path="res://ammo/laser_beam.gd" id="1_hkvsn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvbfk"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fy6ma"]
 
-[node name="Node3D" type="Node3D"]
+[node name="LaserBeam" type="Node3D"]
 top_level = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-script = ExtResource("1_07oye")
+script = ExtResource("1_hkvsn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)

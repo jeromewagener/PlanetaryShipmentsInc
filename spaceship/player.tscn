@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dwrmsc0rbglvo"]
 
 [ext_resource type="Script" path="res://spaceship/player.gd" id="1_ct7vo"]
-[ext_resource type="PackedScene" uid="uid://bxxpcu4d1pn82" path="res://ammo/laser.tscn" id="2_iggdh"]
+[ext_resource type="PackedScene" uid="uid://bxxpcu4d1pn82" path="res://ammo/laser_beam.tscn" id="2_iggdh"]
 [ext_resource type="PackedScene" uid="uid://do635au5vo031" path="res://spaceship/spaceship.tscn" id="3_61nrj"]
 [ext_resource type="PackedScene" uid="uid://mw3nhxvrlq62" path="res://spaceship/booster_particles.tscn" id="4_gam1i"]
-[ext_resource type="AudioStream" uid="uid://t7vkkdunbs2w" path="res://audio/laserShoot.wav" id="4_unvdu"]
+[ext_resource type="AudioStream" uid="uid://dhwe5qmlce4ae" path="res://audio/laserShoot.wav" id="4_unvdu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o7g7x"]
 

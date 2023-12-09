@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ofhvjyfvvrf0"]
+[gd_scene load_steps=5 format=3 uid="uid://ofhvjyfvvrf0"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_v0b8s"]
+[ext_resource type="Shader" path="res://menu/menu.gdshader" id="2_3opik"]
+[ext_resource type="Theme" uid="uid://d1ji1k3i10sjo" path="res://default-theme.tres" id="2_35klw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfj0l"]
+shader = ExtResource("2_3opik")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -12,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_v0b8s")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xfj0l")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,17 +42,20 @@ grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
+theme = ExtResource("2_35klw")
+theme_override_font_sizes/font_size = 80
 text = "Play"
 
 [node name="SwitchFullscreenWindowButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
+theme = ExtResource("2_35klw")
+theme_override_font_sizes/font_size = 80
 text = "Enter Fullscreen"
 
 [node name="QuitButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
+theme = ExtResource("2_35klw")
+theme_override_font_sizes/font_size = 80
 text = "Quit"
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

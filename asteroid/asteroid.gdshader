@@ -17,5 +17,4 @@ void fragment() {
 }
 
 void light() {
-	// Called for every pixel for every light affecting the material.
 }

@@ -13,7 +13,8 @@ config_version=5
 config/name="Planetary Shipments Inc"
 run/main_scene="res://menu/control.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="res://textures/bootimage.png"
+config/icon="res://textures/icon.png"
 
 [display]
 

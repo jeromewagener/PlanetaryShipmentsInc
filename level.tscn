@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://b7w3dvmbbnthn"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_xy6g5"]
+[ext_resource type="Material" uid="uid://bnx0seohwheki" path="res://asteroid/blinking-wireframe-material-overlay.tres" id="2_ay31k"]
+[ext_resource type="Texture2D" uid="uid://cl486qmrg2deq" path="res://textures/skybox-simple-8k.jpg" id="3_7msv6"]
+[ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="4_mxedw"]
+[ext_resource type="FontFile" uid="uid://ntfboyq2uyil" path="res://fonts/BrunoAce-Regular.ttf" id="5_v1ywg"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jdoig"]
+panorama = ExtResource("3_7msv6")
+
+[sub_resource type="Sky" id="Sky_psl64"]
+sky_material = SubResource("PanoramaSkyMaterial_jdoig")
+
+[sub_resource type="Environment" id="Environment_q5fy8"]
+background_mode = 2
+sky = SubResource("Sky_psl64")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eca55"]
+size = Vector3(64, 36, 10)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_xy6g5")
+attentionShader = ExtResource("2_ay31k")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q5fy8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 9.82505, -28.9876)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("4_mxedw")]
+unique_name_in_owner = true
+
+[node name="AsteroidSpawnTimer" type="Timer" parent="."]
+wait_time = 4.584
+autostart = true
+
+[node name="PlayerMovementArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="PlayerMovementBox" type="CollisionShape3D" parent="PlayerMovementArea"]
+shape = SubResource("BoxShape3D_eca55")
+
+[node name="ScoreLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.6399, 0)
+billboard = 1
+modulate = Color(0.792157, 0.588235, 0.890196, 0.811765)
+outline_modulate = Color(0.678431, 0.784314, 1, 1)
+text = "Score: 0"
+font = ExtResource("5_v1ywg")
+font_size = 250
+outline_size = 22
+
+[connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="body_exited" from="PlayerMovementArea" to="." method="_on_area_3d_body_exited"]

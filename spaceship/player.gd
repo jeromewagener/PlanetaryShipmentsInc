@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	spaceship.rotation = Vector3(0,0,0)
 	followCam.rotation = Vector3(0,0,0)
 	
-	var spaceshipMesh : MeshInstance3D = spaceship.get_child(0)
+	# var spaceshipMesh : MeshInstance3D = spaceship.get_child(0)
 	# spaceshipMesh.set_transparency(0.9) #0.8-(clamp(abs(spaceship.global_position.x)*abs(spaceship.global_position.y-5.0),0,100)/100))
 	
 	if Input.is_action_pressed("fly_up"):
@@ -85,6 +85,6 @@ func _process(delta: float) -> void:
 	tweenCameraTransformRotation.tween_property(followCam, "rotation", followCam.rotation, 2)
 
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(_body: Node) -> void:
 	#self.get_parent_node_3d().visible = false
 	self.get_parent_node_3d().queue_free()
