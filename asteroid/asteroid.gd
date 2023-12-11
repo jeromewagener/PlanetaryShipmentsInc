@@ -2,19 +2,21 @@ extends RigidBody3D
 
 @onready var asteroid_hit_sound: AudioStreamPlayer3D = $"../AsteroidHitSound"
 @onready var asteroid_destroyed_sound: AudioStreamPlayer3D = $"../AsteroidDestroyedSound"
-@onready var asteroid_model: MeshInstance3D = $AsteroidModel
-@export var scoreLabel: Label3D;
-@export var attentionShader: ShaderMaterial;
-@export var player: Node3D;
+@onready var asteroid_model: MeshInstance3D = $Asteroid
+@export var scoreLabel: Label3D
+@export var attentionShader: ShaderMaterial
+@export var player: Node3D
 
 func _ready() -> void:
 	apply_force(Vector3.BACK * randf_range(5000, 10000))
 	apply_torque(Vector3(randf_range(0, 20), randf_range(0, 20), randf_range(0, 20)))
 
-func _on_body_entered(_body: Node) -> void:
-	asteroid_destroyed_sound.play()
-	scoreLabel.text = "Score: " + str(int(scoreLabel.text.replace("Score: ",""))+100)
-	queue_free()
+func _on_body_entered(body: Node) -> void:
+	for group : String in body.get_groups():
+		if group == "LaserShot":
+			asteroid_destroyed_sound.play()
+			scoreLabel.text = "Score: " + str(int(scoreLabel.text.replace("Score: ",""))+100)
+			queue_free()
 
 func _process(_delta: float) -> void:
 	if player != null:
@@ -30,3 +32,7 @@ func _process(_delta: float) -> void:
 		else:
 			#print("deactivateShader")
 			asteroid_model.material_overlay = null
+
+
+func _on_asteroid_hit_sound_finished() -> void:
+	get_parent().queue_free()

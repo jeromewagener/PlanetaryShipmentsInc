@@ -9,7 +9,7 @@
 [node name="LaserBeam" type="Node3D"]
 top_level = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["LaserShot"]]
 script = ExtResource("1_hkvsn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -20,3 +20,10 @@ shape = SubResource("BoxShape3D_qvbfk")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("BoxMesh_fy6ma")
 skeleton = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="StaticBody3D" method="_on_timer_timeout"]

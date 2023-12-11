@@ -16,12 +16,12 @@ var isTweeningRight = false
 var tweenSpaceShipTransformRotation = null
 var tweenCameraTransformRotation = null
 
+# Debugging only? Apparently slow according to the documentation
+var forceReadableNamesOnInstantiatedObjects : bool = true
+
 func _process(delta: float) -> void:
 	spaceship.rotation = Vector3(0,0,0)
 	followCam.rotation = Vector3(0,0,0)
-	
-	# var spaceshipMesh : MeshInstance3D = spaceship.get_child(0)
-	# spaceshipMesh.set_transparency(0.9) #0.8-(clamp(abs(spaceship.global_position.x)*abs(spaceship.global_position.y-5.0),0,100)/100))
 	
 	if Input.is_action_pressed("fly_up"):
 		apply_central_force(basis.y * delta * 20)
@@ -47,35 +47,18 @@ func _process(delta: float) -> void:
 		var leftShot = leftLaserShot.instantiate()
 		var rightShot = rightLaserShot.instantiate()
 
-		add_child(leftShot)
-		add_child(rightShot)
+		add_child(leftShot, forceReadableNamesOnInstantiatedObjects)
+		add_child(rightShot, forceReadableNamesOnInstantiatedObjects)
 
 		leftShot.global_position = leftLaser.global_position
 		rightShot.global_position = rightLaser.global_position
-		
-		#print("leftLaser --> x: " + str(leftLaser.global_position.x) + " y: " + str(leftLaser.global_position.y) + " z: " + str(leftLaser.global_position.z))
-		#print("rightLaser --> x: " + str(rightLaser.global_position.x) + " y: " + str(rightLaser.global_position.y) + " z: " + str(rightLaser.global_position.z))
-		
 		leftShot.global_position = Vector3(leftLaser.global_position.x, leftLaser.global_position.y, leftLaser.global_position.z-1)
 		leftShot.rotation = Vector3(spaceship.rotation.x, spaceship.rotation.y, spaceship.rotation.z)
 		rightShot.global_position = Vector3(rightLaser.global_position.x, rightLaser.global_position.y, rightLaser.global_position.z-1)
 		rightShot.rotation = Vector3(spaceship.rotation.x, spaceship.rotation.y, spaceship.rotation.z)
-		
-		#print("x: " + str(spaceship.global_position.x) + " y: " + str(spaceship.global_position.y) + " z: " + str(spaceship.global_position.z))
-		#print(str(clamp(abs(spaceship.global_position.x)*abs(spaceship.global_position.y-5.0),0,100)))
-		
-		
-		#print("leftShot --> x: " + str(leftShot.position.x) + " y: " + str(leftShot.position.y) + " z: " + str(leftShot.position.z))
-		#print("rightShot --> x: " + str(rightShot.position.x) + " y: " + str(rightShot.position.y) + " z: " + str(rightShot.position.z))
-		
 		right_laser_sound.play()
 		left_laser_sound.play()
 
-		#leftShot.global_position = leftLaser.global_position
-		#rightShot.global_position = rightLaser.global_position
-		
-		#leftShot.global_position.z -= 10
-		#rightShot.global_position.z -= 10
 	if Input.is_action_just_pressed("key_esc"):
 		get_tree().quit()
 
@@ -86,5 +69,6 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(_body: Node) -> void:
+	# Spaceship hit
 	#self.get_parent_node_3d().visible = false
 	self.get_parent_node_3d().queue_free()

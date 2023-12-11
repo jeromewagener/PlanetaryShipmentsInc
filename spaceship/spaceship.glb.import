@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cchalw7jc6vwg"
+uid="uid://b872jtyfc3lnc"
 path="res://.godot/imported/spaceship.glb-829b687331874c0a0279b95e0975356a.scn"
 
 [deps]
@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/spaceship.glb-829b687331874c0a0279b95e0975356
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
