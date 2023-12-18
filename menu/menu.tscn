@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ofhvjyfvvrf0"]
+[gd_scene load_steps=6 format=3 uid="uid://ofhvjyfvvrf0"]
 
-[ext_resource type="Script" path="res://menu/menu.gd" id="1_v0b8s"]
-[ext_resource type="Shader" path="res://menu/menu.gdshader" id="2_3opik"]
-[ext_resource type="Theme" uid="uid://d1ji1k3i10sjo" path="res://default-theme.tres" id="2_35klw"]
+[ext_resource type="Script" path="res://menu/menu.gd" id="1_73s4y"]
+[ext_resource type="Shader" path="res://menu/menu.gdshader" id="2_lsh5p"]
+[ext_resource type="Theme" uid="uid://d1ji1k3i10sjo" path="res://default-theme.tres" id="3_3xlwc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xfj0l"]
-shader = ExtResource("2_3opik")
+shader = ExtResource("2_lsh5p")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ln60u"]
+font_size = 32
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -14,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v0b8s")
+script = ExtResource("1_73s4y")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_xfj0l")
@@ -40,21 +43,30 @@ offset_bottom = 221.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HighScoreLabel" type="Label" parent="ColorRect/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("3_3xlwc")
+text = "Current Highscore: 0"
+label_settings = SubResource("LabelSettings_ln60u")
+horizontal_alignment = 1
+
 [node name="PlayButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_35klw")
+theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Play"
 
 [node name="SwitchFullscreenWindowButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_35klw")
+theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Enter Fullscreen"
 
 [node name="QuitButton" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_35klw")
+theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Quit"
 

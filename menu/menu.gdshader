@@ -13,7 +13,7 @@ void fragment() {
 	float color = 0.0;
 
 	if (rand(SCREEN_UV.xy) < 0.001) {
-		color = sin(TIME*0.8);
+		color = 0.5 + sin(TIME*0.8);
 	} else if (rand(SCREEN_UV.xy) < 0.002) {
 		color = sin(5.0 + TIME*0.8) + 0.1;
 	}

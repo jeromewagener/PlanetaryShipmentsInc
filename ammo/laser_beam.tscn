@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxxpcu4d1pn82"]
+[gd_scene load_steps=5 format=3 uid="uid://bxxpcu4d1pn82"]
 
 [ext_resource type="Script" path="res://ammo/laser_beam.gd" id="1_hkvsn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvbfk"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_fy6ma"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6g2o"]
+albedo_color = Color(1, 0.411765, 0.203922, 1)
+emission_enabled = true
+emission = Color(0.890196, 0.235294, 0, 1)
+emission_energy_multiplier = 13.36
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hkttw"]
 
 [node name="LaserBeam" type="Node3D"]
 top_level = true
@@ -16,9 +22,10 @@ script = ExtResource("1_hkvsn")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_qvbfk")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" groups=["laser"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = SubResource("BoxMesh_fy6ma")
+material_override = SubResource("StandardMaterial3D_k6g2o")
+mesh = SubResource("CapsuleMesh_hkttw")
 skeleton = NodePath("../..")
 
 [node name="Timer" type="Timer" parent="."]

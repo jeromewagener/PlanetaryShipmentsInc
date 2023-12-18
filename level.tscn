@@ -48,12 +48,25 @@ shape = SubResource("BoxShape3D_eca55")
 [node name="ScoreLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.6399, 0)
 billboard = 1
-modulate = Color(0.792157, 0.588235, 0.890196, 0.811765)
-outline_modulate = Color(0.678431, 0.784314, 1, 1)
+modulate = Color(0.858824, 0.858824, 0.858824, 1)
 text = "Score: 0"
 font = ExtResource("5_v1ywg")
 font_size = 250
 outline_size = 22
 
+[node name="GameOverLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.47454, 0)
+visible = false
+billboard = 1
+modulate = Color(0.858824, 0.858824, 0.858824, 1)
+text = "Game Over "
+font = ExtResource("5_v1ywg")
+font_size = 750
+outline_size = 127
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="body_exited" from="PlayerMovementArea" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

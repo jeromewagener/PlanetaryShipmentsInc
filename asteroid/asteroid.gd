@@ -1,8 +1,10 @@
 extends RigidBody3D
 
+@onready var asteroid_explosion: Node3D = $"../asteroid-explosion"
 @onready var asteroid_hit_sound: AudioStreamPlayer3D = $"../AsteroidHitSound"
 @onready var asteroid_destroyed_sound: AudioStreamPlayer3D = $"../AsteroidDestroyedSound"
 @onready var asteroid_model: MeshInstance3D = $Asteroid
+@onready var game_state = get_node("/root/GameState")
 @export var scoreLabel: Label3D
 @export var attentionShader: ShaderMaterial
 @export var player: Node3D
@@ -14,8 +16,13 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	for group : String in body.get_groups():
 		if group == "LaserShot":
+			asteroid_explosion.position = self.position
+			asteroid_explosion.get_child(0).emitting = true
 			asteroid_destroyed_sound.play()
-			scoreLabel.text = "Score: " + str(int(scoreLabel.text.replace("Score: ",""))+100)
+			var newScore = int(scoreLabel.text.replace("Score: ","")) + 100
+			scoreLabel.text = "Score: " + str(newScore)
+			if game_state.highScore < newScore:
+				game_state.highScore = newScore
 			queue_free()
 
 func _process(_delta: float) -> void:

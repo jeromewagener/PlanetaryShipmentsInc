@@ -1,11 +1,16 @@
 extends Control
 
 @onready var switch_fullscreen_window_button: Button = $ColorRect/VBoxContainer/SwitchFullscreenWindowButton
+@onready var game_state = get_node("/root/GameState")
+@onready var high_score_label: Label = $ColorRect/VBoxContainer/HighScoreLabel
 
 func _ready() -> void:
-	pass
+	if game_state.highScore > 0:
+		high_score_label.show()
+		high_score_label.text = "Current Highscore: " + str(game_state.highScore)
 
 func _on_play_button_pressed() -> void:
+	game_state.isGameOver = false
 	get_tree().change_scene_to_file("res://level.tscn")
 
 func _on_quit_button_pressed() -> void:

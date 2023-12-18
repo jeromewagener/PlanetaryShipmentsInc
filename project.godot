@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="Planetary Shipments Inc"
-run/main_scene="res://menu/control.tscn"
+run/main_scene="res://menu/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://textures/bootimage.png"
 config/icon="res://textures/icon.png"
+
+[autoload]
+
+GameState="*res://game_state.gd"
 
 [display]
 

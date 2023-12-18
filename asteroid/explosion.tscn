@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://yvcc84y2vx"]
+
+[ext_resource type="Texture2D" uid="uid://0xc17sohn2bg" path="res://asteroid/trace_07.png" id="1_7et27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cks2i"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_7et27")
+
+[sub_resource type="Gradient" id="Gradient_1bwdx"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0.766515, 0.903432, 0.240378, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k21ra"]
+gradient = SubResource("Gradient_1bwdx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_po2hh"]
+particle_flag_align_y = true
+inherit_velocity_ratio = 0.453
+spread = 180.0
+initial_velocity_min = 57.14
+initial_velocity_max = 204.07
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_k21ra")
+
+[sub_resource type="QuadMesh" id="QuadMesh_53igj"]
+
+[node name="asteroid-explosion" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_cks2i")
+emitting = false
+amount = 1000
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.66
+randomness = 0.66
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_po2hh")
+draw_pass_1 = SubResource("QuadMesh_53igj")
