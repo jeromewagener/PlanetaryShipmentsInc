@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://3k34frl8l3kt"
-path="res://.godot/imported/psi-main.wav-2112914e2a055138ae53d262f0fc4506.sample"
+path="res://.godot/imported/psi_main_song.wav-5b557610154994b33925903076257fd9.sample"
 
 [deps]
 
-source_file="res://audio/psi-main.wav"
-dest_files=["res://.godot/imported/psi-main.wav-2112914e2a055138ae53d262f0fc4506.sample"]
+source_file="res://audio/psi_main_song.wav"
+dest_files=["res://.godot/imported/psi_main_song.wav-5b557610154994b33925903076257fd9.sample"]
 
 [params]
 

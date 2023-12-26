@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://byhydwmwyihni"
-path="res://.godot/imported/hit.wav-0ce77c86b567f5096583f88ec20be939.sample"
+uid="uid://dhwe5qmlce4ae"
+path="res://.godot/imported/laser.wav-536c68da0dc74fd32483ded564d2c409.sample"
 
 [deps]
 
-source_file="res://audio/hit.wav"
-dest_files=["res://.godot/imported/hit.wav-0ce77c86b567f5096583f88ec20be939.sample"]
+source_file="res://audio/laser.wav"
+dest_files=["res://.godot/imported/laser.wav-536c68da0dc74fd32483ded564d2c409.sample"]
 
 [params]
 

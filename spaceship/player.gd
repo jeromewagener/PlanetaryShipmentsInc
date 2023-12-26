@@ -3,20 +3,20 @@ extends RigidBody3D
 @onready var spaceship: Node3D = $spaceship
 @export var laserShot: PackedScene
 
-@onready var rightLaser1: Node3D = $spaceship/RightLaser1
-@onready var leftLaser1: Node3D = $spaceship/LeftLaser1
-@onready var rightLaser2: Node3D = $spaceship/RightLaser2
-@onready var leftLaser2: Node3D = $spaceship/LeftLaser2
-@onready var rightLaser3: Node3D = $spaceship/RightLaser3
-@onready var leftLaser3: Node3D = $spaceship/LeftLaser3
+@onready var rightLaser1: Node3D = $spaceship/Lasers/RightLaser1
+@onready var leftLaser1: Node3D = $spaceship/Lasers/LeftLaser1
+@onready var rightLaser2: Node3D = $spaceship/Lasers/RightLaser2
+@onready var leftLaser2: Node3D = $spaceship/Lasers/LeftLaser2
+@onready var rightLaser3: Node3D = $spaceship/Lasers/RightLaser3
+@onready var leftLaser3: Node3D = $spaceship/Lasers/LeftLaser3
 @onready var followCam: Camera3D = $"../FollowCam"
-@onready var right_laser_sound_1: AudioStreamPlayer3D = $spaceship/RightLaser1/RightLaserSound1
-@onready var left_laser_sound_1: AudioStreamPlayer3D = $spaceship/LeftLaser1/LeftLaserSound1
-@onready var right_laser_sound_2: AudioStreamPlayer3D = $spaceship/RightLaser2/RightLaserSound2
-@onready var left_laser_sound_2: AudioStreamPlayer3D = $spaceship/LeftLaser2/LeftLaserSound2
-@onready var right_laser_sound_3: AudioStreamPlayer3D = $spaceship/RightLaser3/RightLaserSound3
-@onready var left_laser_sound_3: AudioStreamPlayer3D = $spaceship/LeftLaser3/LeftLaserSound3
-@onready var ship_hit_audio: AudioStreamPlayer3D = $"../shipHitAudio"
+@onready var right_laser_sound_1: AudioStreamPlayer3D = $spaceship/Lasers/RightLaser1/RightLaserSound1
+@onready var left_laser_sound_1: AudioStreamPlayer3D = $spaceship/Lasers/LeftLaser1/LeftLaserSound1
+@onready var right_laser_sound_2: AudioStreamPlayer3D = $spaceship/Lasers/RightLaser2/RightLaserSound2
+@onready var left_laser_sound_2: AudioStreamPlayer3D = $spaceship/Lasers/LeftLaser2/LeftLaserSound2
+@onready var right_laser_sound_3: AudioStreamPlayer3D = $spaceship/Lasers/RightLaser3/RightLaserSound3
+@onready var left_laser_sound_3: AudioStreamPlayer3D = $spaceship/Lasers/LeftLaser3/LeftLaserSound3
+@onready var ship_hit_audio: AudioStreamPlayer3D = $"../ShipHitAudio"
 @onready var game_state = get_node("/root/GameState")
 
 var disableControls = false
@@ -34,19 +34,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("key_esc"):
 		get_tree().change_scene_to_file("res://menu/menu.tscn")
 		
-	if disableControls or game_state.isGameOver:
+	if disableControls or game_state.is_game_over:
 		return
 	
 	spaceship.rotation = Vector3(0,0,0)
 	followCam.rotation = Vector3(0,0,0)
 	
-	#TODO JWA decide on shaky cam
+	# Shaky cam... :-)
 	followCam.rotation.x += rng.randf_range(-0.1, 0.1)
 	followCam.rotation.y += rng.randf_range(-0.1, 0.1)
 	followCam.rotation.z += rng.randf_range(-0.1, 0.1)
-	#spaceship.rotation.x += rng.randf_range(-0.1, 0.1)
-	#spaceship.rotation.y += rng.randf_range(-0.1, 0.1)
-	#spaceship.rotation.z += rng.randf_range(-0.1, 0.1)
 	
 	if Input.is_action_pressed("fly_up"):
 		apply_central_force(basis.y * delta * 20)
@@ -96,11 +93,11 @@ func shot_lasers(leftLaser, rightLaser) -> void:
 	rightShot.global_position = Vector3(rightLaser.global_position.x, rightLaser.global_position.y, rightLaser.global_position.z-1)
 	rightShot.rotation = Vector3(spaceship.rotation.x, spaceship.rotation.y, spaceship.rotation.z)
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(_body: Node) -> void:
 	# Spaceship hit
 	disableControls = true
 	ship_hit_audio.play()
-	game_state.isGameOver = true
+	game_state.is_game_over = true
 	gravity_scale = 2
 	#self.get_parent_node_3d().visible = false
 	#self.get_parent_node_3d().queue_free()

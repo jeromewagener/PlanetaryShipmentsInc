@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://447xx2kl6xgg"]
+[gd_scene load_steps=8 format=3 uid="uid://447xx2kl6xgg"]
 
 [ext_resource type="Script" path="res://asteroid/asteroid.gd" id="1_7w72b"]
-[ext_resource type="AudioStream" uid="uid://byhydwmwyihni" path="res://audio/hit.wav" id="3_yra2a"]
 [ext_resource type="AudioStream" uid="uid://b4d5tqvbyh1b8" path="res://audio/explosion.wav" id="4_gyrfi"]
 [ext_resource type="PackedScene" uid="uid://yvcc84y2vx" path="res://asteroid/explosion.tscn" id="4_oe3wt"]
 
@@ -65,7 +64,6 @@ mesh = SubResource("ArrayMesh_ktmgg")
 skeleton = NodePath("")
 
 [node name="AsteroidHitSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_yra2a")
 volume_db = 46.286
 
 [node name="AsteroidDestroyedSound" type="AudioStreamPlayer3D" parent="."]

@@ -1,13 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7w3dvmbbnthn"]
+[gd_scene load_steps=18 format=3 uid="uid://b7w3dvmbbnthn"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_xy6g5"]
-[ext_resource type="Material" uid="uid://bnx0seohwheki" path="res://asteroid/blinking-wireframe-material-overlay.tres" id="2_ay31k"]
+[ext_resource type="Material" uid="uid://bnx0seohwheki" path="res://asteroid/attention_shader_material.tres" id="2_fue2w"]
 [ext_resource type="Texture2D" uid="uid://cl486qmrg2deq" path="res://textures/skybox-simple-8k.jpg" id="3_7msv6"]
 [ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="4_mxedw"]
 [ext_resource type="FontFile" uid="uid://ntfboyq2uyil" path="res://fonts/BrunoAce-Regular.ttf" id="5_v1ywg"]
-[ext_resource type="AudioStream" uid="uid://3k34frl8l3kt" path="res://audio/psi-main.wav" id="6_vd5tv"]
+[ext_resource type="AudioStream" uid="uid://3k34frl8l3kt" path="res://audio/psi_main_song.wav" id="6_vd5tv"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="7_hqm8a"]
-[ext_resource type="Texture2D" uid="uid://32rttb3ighhl" path="res://planet/planet_planet.png" id="7_r06v6"]
+[ext_resource type="Texture2D" uid="uid://b7cy20qvng0bg" path="res://planet/planet_planet.png" id="7_r06v6"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jdoig"]
 panorama = ExtResource("3_7msv6")
@@ -29,11 +29,19 @@ adjustment_brightness = 1.95
 [sub_resource type="BoxShape3D" id="BoxShape3D_eca55"]
 size = Vector3(64, 36, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhkmf"]
+albedo_texture = ExtResource("7_r06v6")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_34mfa"]
+load_path = "res://.godot/imported/planet_planet.png-2e3dd012ddb02f7e25a14ef44193faa7.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b62vi"]
 resource_name = "Material.001"
 cull_mode = 2
-albedo_texture = ExtResource("7_r06v6")
+albedo_texture = SubResource("CompressedTexture2D_34mfa")
 roughness = 0.5
+emission = Color(0.827451, 0.917647, 0.807843, 1)
+emission_energy_multiplier = 0.03
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1ht8v"]
 _surfaces = [{
@@ -71,7 +79,7 @@ shadow_mesh = SubResource("ArrayMesh_1ht8v")
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_xy6g5")
-attentionShader = ExtResource("2_ay31k")
+attention_shader_material = ExtResource("2_fue2w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q5fy8")
@@ -93,11 +101,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 [node name="PlayerMovementBox" type="CollisionShape3D" parent="PlayerMovementArea"]
 shape = SubResource("BoxShape3D_eca55")
 
-[node name="ScoreLabel" type="Label3D" parent="."]
+[node name="PointsLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.6399, 0)
 billboard = 1
 modulate = Color(0.858824, 0.858824, 0.858824, 1)
-text = "Score: 0"
+text = "Points: 0"
 font = ExtResource("5_v1ywg")
 font_size = 250
 outline_size = 22
@@ -115,15 +123,16 @@ outline_size = 127
 [node name="ReturnToMenuTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="GameMusicStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vd5tv")
 autoplay = true
 
-[node name="planet" type="Node3D" parent="."]
+[node name="Planet" type="Node3D" parent="."]
 transform = Transform3D(9.96195, 0.871557, 0, -0.871557, 9.96195, 0, 0, 0, 10, 0, 0, -400)
 script = ExtResource("7_hqm8a")
 
-[node name="Sphere" type="MeshInstance3D" parent="planet"]
+[node name="Sphere" type="MeshInstance3D" parent="Planet"]
+material_override = SubResource("StandardMaterial3D_mhkmf")
 mesh = SubResource("ArrayMesh_lsbcn")
 skeleton = NodePath("")
 

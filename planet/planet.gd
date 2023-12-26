@@ -1,14 +1,10 @@
 extends Node3D
 
+const PLANET_ROTATION_SPEED : float = 0.5
+const PLANET_MAX_SCALE : float = 40
+const PLANET_GROW_SPEED : float = 0.3
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	rotation.y = rotation.y + 0.5 * delta
+	rotation.y = rotation.y + PLANET_ROTATION_SPEED * delta
 	if scale.x <= 40:
-		scale = scale + Vector3(0.3, 0.3, 0.3) * delta
-		print("Scale: " + str(scale.x))
+		scale = scale + Vector3(PLANET_GROW_SPEED, PLANET_GROW_SPEED, PLANET_GROW_SPEED) * delta

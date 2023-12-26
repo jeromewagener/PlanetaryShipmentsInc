@@ -1,19 +1,29 @@
 extends Node
 
-static var isGameOver : bool = false :
-	get:
-		return isGameOver
-	set(gameOver):
-		isGameOver = gameOver
 
-static var isWin : bool = false :
+static var is_game_over : bool = false :
 	get:
-		return isWin
+		return is_game_over
+	set(go):
+		is_game_over = go
+
+
+static var is_win : bool = false :
+	get:
+		return is_win
 	set(win):
-		isWin = win
+		is_win = win
 
-static var highScore : int = 0 :
+
+static var high_score : int = 0 :
 	get:
-		return highScore
-	set(score):
-		highScore = score
+		return high_score
+	set(hs):
+		high_score = hs
+
+
+static var current_points : int = 0 :
+	get:
+		return current_points
+	set(cp):
+		current_points = cp

@@ -1,28 +1,25 @@
 extends Control
 
+@onready var game_state : GameState = get_node("/root/GameState")
+
 @onready var play_button: Button = $ColorRect/Menu/PlayButton
 @onready var controls: VBoxContainer = $ColorRect/Controls
 @onready var controls_back_button: Button = $ColorRect/Controls/Back
-
 @onready var switch_fullscreen_window_button: Button = $ColorRect/Menu/SwitchFullscreenWindowButton
-@onready var game_state = get_node("/root/GameState")
 @onready var high_score_label: Label = $ColorRect/Menu/HighScoreLabel
 @onready var menu: VBoxContainer = $ColorRect/Menu
-
 @onready var story_begin: VBoxContainer = $ColorRect/StoryBegin
 @onready var story_begin_next_button: Button = $ColorRect/StoryBegin/StoryBeginNextButton
-
 @onready var story_end: VBoxContainer = $ColorRect/StoryEnd
 @onready var story_end_next_button: Button = $ColorRect/StoryEnd/StoryEndNextButton
-
 @onready var story_fail: VBoxContainer = $ColorRect/StoryFail
 @onready var story_fail_next_button: Button = $ColorRect/StoryFail/StoryFailNextButton
 
 
 func _ready() -> void:	
-	if game_state.isGameOver: 
+	if game_state.is_game_over: 
 		menu.visible = false
-		if game_state.isWin:
+		if game_state.is_win:
 			story_end.visible = true
 			story_end_next_button.grab_focus()
 		else:
@@ -33,9 +30,9 @@ func _ready() -> void:
 		play_button.grab_focus()
 		story_fail.visible = false
 	
-	if game_state.highScore > 0:
+	if game_state.high_score > 0:
 		high_score_label.show()
-		high_score_label.text = "Current Highscore: " + str(game_state.highScore)
+		high_score_label.text = "Highscore: " + str(game_state.high_score)
 
 
 func _on_play_button_pressed() -> void:
@@ -57,25 +54,27 @@ func _on_switch_fullscreen_window_button_pressed() -> void:
 		switch_fullscreen_window_button.text = "Enter Fullscreen"
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("key_esc"):
 		get_tree().quit()
 
 
 func _on_story_begin_next_button_pressed() -> void:
-	game_state.isGameOver = false
-	game_state.isWin = false
+	game_state.is_game_over = false
+	game_state.is_win = false
+	game_state.current_points = 0
 	get_tree().change_scene_to_file("res://level.tscn")
 
 
 func _on_story_fail_next_button_pressed() -> void:
-	game_state.isGameOver = false
+	game_state.is_game_over = false
 	menu.visible = true
 	story_fail.visible = false
 	play_button.grab_focus()
 
+
 func _on_story_end_next_button_pressed() -> void:
-	game_state.isGameOver = false
+	game_state.is_game_over = false
 	menu.visible = true
 	story_end.visible = false
 	play_button.grab_focus()
