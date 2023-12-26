@@ -4,30 +4,45 @@ var rng = RandomNumberGenerator.new()
 @onready var score_label: Label3D = $ScoreLabel
 @export var attentionShader : ShaderMaterial
 @onready var game_state = get_node("/root/GameState")
-@onready var game_over_timer: Timer = $GameOverTimer
-@onready var game_over_label: Label3D = $GameOverLabel
+@onready var return_to_menu_timer: Timer = $ReturnToMenuTimer
+@onready var game_finished_label: Label3D = $GameFinishedLabel
 @onready var asteroidScene : Resource = preload("res://asteroid/asteroid.tscn")
 
+var spawnCounter : int = 1
 # Debugging only? Apparently slow according to the documentation
 var forceReadableNamesOnInstantiatedObjects : bool = true
 
 func _process(delta: float) -> void:
 	if game_state.isGameOver:
-		game_over_label.show()
+		if game_state.isWin:
+			game_finished_label.text = "Mission Accomplished!"
+			game_finished_label.show()
+		else:
+			game_finished_label.text = "Reactor is going critical:\nEJECT!!!"
+			game_finished_label.show()
 
 func spawnAsteroid() -> void:
-	var asteroidInstance : Node3D = asteroidScene.instantiate()
-	asteroidInstance.get_child(0).scoreLabel= score_label
-	asteroidInstance.get_child(0).player = %Player
-	asteroidInstance.get_child(0).attentionShader = attentionShader
-	asteroidInstance.position.z = asteroidInstance.position.z - rng.randf_range(150, 250)
-	asteroidInstance.position.x = asteroidInstance.position.x - rng.randf_range(-10, 10)
-	asteroidInstance.position.y = asteroidInstance.position.y - rng.randf_range(-10, 10)
-	add_child(asteroidInstance, forceReadableNamesOnInstantiatedObjects)
-
+	for i in range(spawnCounter):
+		var asteroidInstance : Node3D = asteroidScene.instantiate()
+		asteroidInstance.get_child(0).scoreLabel= score_label
+		asteroidInstance.get_child(0).player = %Player
+		asteroidInstance.get_child(0).attentionShader = attentionShader
+		#https://github.com/godotengine/godot/issues/5734
+		#asteroidInstance.scale = asteroidInstance.scale * rng.randf_range(0.25, 2.5)
+		asteroidInstance.position.z = asteroidInstance.position.z - rng.randf_range(250, 350)
+		asteroidInstance.position.x = asteroidInstance.position.x - rng.randf_range(-32, 32)
+		asteroidInstance.position.y = asteroidInstance.position.y - rng.randf_range(-15, 20)
+		add_child(asteroidInstance, forceReadableNamesOnInstantiatedObjects)
+	spawnCounter += 1
 
 func _on_timer_timeout():
-	spawnAsteroid()
+	print("Wave: " + str(spawnCounter))
+	if spawnCounter <= 22:
+		spawnAsteroid()
+	else:
+		return_to_menu_timer.start()
+		game_state.isGameOver = true
+		game_state.isWin = true
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
@@ -35,11 +50,9 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 		if group == "Asteroid":
 			body.get_parent().queue_free()
 		if group == "player":
-			if !game_state.isGameOver:
-				game_state.isGameOver = true
-			game_over_timer.start()
+			return_to_menu_timer.start()
+			game_state.isGameOver = true
 
 
 func _on_game_over_timer_timeout() -> void:
-	game_state.isGameOver = false
 	get_tree().change_scene_to_file("res://menu/menu.tscn")

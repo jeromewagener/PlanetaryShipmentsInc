@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://ofhvjyfvvrf0"]
+[gd_scene load_steps=8 format=3 uid="uid://ofhvjyfvvrf0"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_73s4y"]
 [ext_resource type="Shader" path="res://menu/menu.gdshader" id="2_lsh5p"]
 [ext_resource type="Theme" uid="uid://d1ji1k3i10sjo" path="res://default-theme.tres" id="3_3xlwc"]
+[ext_resource type="AudioStream" uid="uid://ry4nxw58yj2o" path="res://audio/psi-title.wav" id="4_leull"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xfj0l"]
 shader = ExtResource("2_lsh5p")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ln60u"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_y85nd"]
 font_size = 32
 
 [node name="Control" type="Control"]
@@ -29,21 +33,21 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.133333, 0.0392157, 0.168627, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="Menu" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -364.5
-offset_top = -221.5
-offset_right = 364.5
-offset_bottom = 221.5
+offset_left = -418.0
+offset_top = -163.0
+offset_right = 418.0
+offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HighScoreLabel" type="Label" parent="ColorRect/VBoxContainer"]
+[node name="HighScoreLabel" type="Label" parent="ColorRect/Menu"]
 visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -52,24 +56,190 @@ text = "Current Highscore: 0"
 label_settings = SubResource("LabelSettings_ln60u")
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="ColorRect/Menu"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../Controls")
 theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Play"
 
-[node name="SwitchFullscreenWindowButton" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="Controls" type="Button" parent="ColorRect/Menu"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../SwitchFullscreenWindowButton")
+theme = ExtResource("3_3xlwc")
+theme_override_font_sizes/font_size = 80
+text = "Controls"
+
+[node name="SwitchFullscreenWindowButton" type="Button" parent="ColorRect/Menu"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Controls")
+focus_neighbor_bottom = NodePath("../QuitButton")
 theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Enter Fullscreen"
 
-[node name="QuitButton" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="ColorRect/Menu"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../SwitchFullscreenWindowButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
 theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Quit"
 
-[connection signal="pressed" from="ColorRect/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/SwitchFullscreenWindowButton" to="." method="_on_switch_fullscreen_window_button_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="StoryBegin" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/StoryBegin"]
+layout_mode = 2
+theme = ExtResource("3_3xlwc")
+text = "Giant alien spiders have attacked planet Naboo...
+The senate contacted us to deliver the antidote to the 
+vicious Tiberium poison.
+We have been briefed about potential asteroid swarms...
+¯\\_(ツ)_/¯
+
+Good luck captain!
+
+"
+label_settings = SubResource("LabelSettings_y85nd")
+horizontal_alignment = 1
+
+[node name="StoryBeginNextButton" type="Button" parent="ColorRect/StoryBegin"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SwitchFullscreenWindowButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme = ExtResource("3_3xlwc")
+theme_override_font_sizes/font_size = 80
+text = "Next"
+
+[node name="StoryEnd" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -410.5
+offset_top = -125.5
+offset_right = 410.5
+offset_bottom = 125.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/StoryEnd"]
+layout_mode = 2
+theme = ExtResource("3_3xlwc")
+text = "Did you really make it Captain !?!
+
+Guess the people of Naboo will be eternally grateful...
+
+Also, please come back to headquarters ASAP. 
+The Wookies are celebrating Life Day and have 
+ordered 42 galactic tons of Slurm...
+
+"
+label_settings = SubResource("LabelSettings_y85nd")
+horizontal_alignment = 1
+
+[node name="StoryEndNextButton" type="Button" parent="ColorRect/StoryEnd"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SwitchFullscreenWindowButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme = ExtResource("3_3xlwc")
+theme_override_font_sizes/font_size = 80
+text = "Next"
+
+[node name="StoryFail" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -410.5
+offset_top = -125.5
+offset_right = 410.5
+offset_bottom = 125.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/StoryFail"]
+layout_mode = 2
+theme = ExtResource("3_3xlwc")
+text = "Dammit Captain!
+
+Do you ever think about our insurance premiums ???
+
+
+"
+label_settings = SubResource("LabelSettings_y85nd")
+horizontal_alignment = 1
+
+[node name="StoryFailNextButton" type="Button" parent="ColorRect/StoryFail"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SwitchFullscreenWindowButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme = ExtResource("3_3xlwc")
+theme_override_font_sizes/font_size = 80
+text = "Next"
+
+[node name="Controls" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.5
+offset_top = -58.5
+offset_right = 263.5
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/Controls"]
+layout_mode = 2
+theme = ExtResource("3_3xlwc")
+text = "WASD or arrow keys to fly your spaceship
+Spacebar to shoot your lasers
+
+Best played with a controller!
+
+
+"
+label_settings = SubResource("LabelSettings_y85nd")
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="ColorRect/Controls"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SwitchFullscreenWindowButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+theme = ExtResource("3_3xlwc")
+theme_override_font_sizes/font_size = 80
+text = "Back"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_leull")
+autoplay = true
+
+[connection signal="pressed" from="ColorRect/Menu/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ColorRect/Menu/Controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="ColorRect/Menu/SwitchFullscreenWindowButton" to="." method="_on_switch_fullscreen_window_button_pressed"]
+[connection signal="pressed" from="ColorRect/Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="ColorRect/StoryBegin/StoryBeginNextButton" to="." method="_on_story_begin_next_button_pressed"]
+[connection signal="pressed" from="ColorRect/StoryEnd/StoryEndNextButton" to="." method="_on_story_end_next_button_pressed"]
+[connection signal="pressed" from="ColorRect/StoryFail/StoryFailNextButton" to="." method="_on_story_fail_next_button_pressed"]
+[connection signal="pressed" from="ColorRect/Controls/Back" to="." method="_on_back_pressed"]

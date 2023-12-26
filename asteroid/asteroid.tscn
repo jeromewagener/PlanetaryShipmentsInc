@@ -70,7 +70,7 @@ volume_db = 46.286
 
 [node name="AsteroidDestroyedSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_gyrfi")
-volume_db = 80.0
+volume_db = 41.881
 
 [node name="asteroid-explosion" parent="." instance=ExtResource("4_oe3wt")]
 

@@ -6,6 +6,12 @@ static var isGameOver : bool = false :
 	set(gameOver):
 		isGameOver = gameOver
 
+static var isWin : bool = false :
+	get:
+		return isWin
+	set(win):
+		isWin = win
+
 static var highScore : int = 0 :
 	get:
 		return highScore

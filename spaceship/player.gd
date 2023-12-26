@@ -32,7 +32,7 @@ var forceReadableNamesOnInstantiatedObjects : bool = true
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("key_esc"):
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://menu/menu.tscn")
 		
 	if disableControls or game_state.isGameOver:
 		return
@@ -41,12 +41,12 @@ func _process(delta: float) -> void:
 	followCam.rotation = Vector3(0,0,0)
 	
 	#TODO JWA decide on shaky cam
-	#followCam.rotation.x += rng.randf_range(-0.2, 0.2)
-	#followCam.rotation.y += rng.randf_range(-0.2, 0.2)
-	#followCam.rotation.z += rng.randf_range(-0.2, 0.2)
-	#spaceship.rotation.x += rng.randf_range(-0.2, 0.2)
-	#spaceship.rotation.y += rng.randf_range(-0.2, 0.2)
-	#spaceship.rotation.z += rng.randf_range(-0.2, 0.2)
+	followCam.rotation.x += rng.randf_range(-0.1, 0.1)
+	followCam.rotation.y += rng.randf_range(-0.1, 0.1)
+	followCam.rotation.z += rng.randf_range(-0.1, 0.1)
+	#spaceship.rotation.x += rng.randf_range(-0.1, 0.1)
+	#spaceship.rotation.y += rng.randf_range(-0.1, 0.1)
+	#spaceship.rotation.z += rng.randf_range(-0.1, 0.1)
 	
 	if Input.is_action_pressed("fly_up"):
 		apply_central_force(basis.y * delta * 20)
