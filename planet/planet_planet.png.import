@@ -3,21 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7cy20qvng0bg"
-path.s3tc="res://.godot/imported/planet_planet.png-2e3dd012ddb02f7e25a14ef44193faa7.s3tc.ctex"
+path="res://.godot/imported/planet_planet.png-2e3dd012ddb02f7e25a14ef44193faa7.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={}
 
 [deps]
 
 source_file="res://planet/planet_planet.png"
-dest_files=["res://.godot/imported/planet_planet.png-2e3dd012ddb02f7e25a14ef44193faa7.s3tc.ctex"]
+dest_files=["res://.godot/imported/planet_planet.png-2e3dd012ddb02f7e25a14ef44193faa7.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	for group : String in body.get_groups():
-		if group == "LaserShot":
+		if group == "LaserShotGroup":
 			asteroid_explosion.position = self.position
 			# Enable particle system
 			asteroid_explosion.get_child(0).emitting = true
