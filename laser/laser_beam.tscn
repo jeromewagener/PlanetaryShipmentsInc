@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxxpcu4d1pn82"]
 
-[ext_resource type="Script" path="res://ammo/laser_beam.gd" id="1_hkvsn"]
+[ext_resource type="Script" path="res://laser/laser_beam.gd" id="1_gqrfg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6g2o"]
 albedo_color = Color(1, 0.411765, 0.203922, 1)
@@ -17,7 +17,7 @@ data = PackedVector3Array(0, 1, 0, 0, 1, 0, 0, 0.9924, -0.0868, 0, 1, 0, -0.0085
 top_level = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." groups=["LaserShot"]]
-script = ExtResource("1_hkvsn")
+script = ExtResource("1_gqrfg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" groups=["laser"]]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)

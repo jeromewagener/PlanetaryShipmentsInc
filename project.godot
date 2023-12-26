@@ -20,7 +20,7 @@ config/windows_native_icon="res://textures/icon.ico"
 
 [autoload]
 
-GameState="*res://game_state.gd"
+GameState="*res://autoload/game_state.gd"
 
 [display]
 

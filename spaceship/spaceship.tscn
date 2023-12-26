@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dwrmsc0rbglvo"]
 
-[ext_resource type="Script" path="res://spaceship/player.gd" id="1_ct7vo"]
-[ext_resource type="PackedScene" uid="uid://bxxpcu4d1pn82" path="res://ammo/laser_beam.tscn" id="2_iggdh"]
+[ext_resource type="Script" path="res://spaceship/spaceship.gd" id="1_ct7vo"]
+[ext_resource type="PackedScene" uid="uid://bxxpcu4d1pn82" path="res://laser/laser_beam.tscn" id="2_bbawg"]
 [ext_resource type="PackedScene" uid="uid://mw3nhxvrlq62" path="res://spaceship/booster_particles.tscn" id="4_gam1i"]
 [ext_resource type="AudioStream" uid="uid://dhwe5qmlce4ae" path="res://audio/laser.wav" id="4_unvdu"]
 [ext_resource type="AudioStream" uid="uid://db6k1xc7n28oh" path="res://audio/booster.wav" id="5_w2lop"]
@@ -168,101 +168,102 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2svl8")
 
-[node name="player" type="Node3D"]
+[node name="Spaceship" type="Node3D"]
 
-[node name="SpaceShipRigidBody" type="RigidBody3D" parent="." groups=["player"]]
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["SpaceshipGroup"]]
+axis_lock_linear_z = true
 mass = 0.01
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_ct7vo")
-laserShot = ExtResource("2_iggdh")
+laser_beam = ExtResource("2_bbawg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceShipRigidBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jmtut")
 
-[node name="spaceship" type="Node3D" parent="SpaceShipRigidBody"]
+[node name="VisualRotation" type="Node3D" parent="RigidBody3D"]
 
-[node name="Spaceship" type="MeshInstance3D" parent="SpaceShipRigidBody/spaceship"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/VisualRotation"]
 transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 0, 0, 0)
 mesh = SubResource("ArrayMesh_fgvtp")
 skeleton = NodePath("")
 
-[node name="Lights" type="Node3D" parent="SpaceShipRigidBody/spaceship"]
+[node name="Lights" type="Node3D" parent="RigidBody3D/VisualRotation"]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="SpaceShipRigidBody/spaceship/Lights"]
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D/VisualRotation/Lights"]
 transform = Transform3D(0.999962, 0.00872672, 3.81453e-10, -3.82137e-15, 4.37114e-08, -1, -0.00872672, 0.999962, 4.37097e-08, 0, -2.69693, 0.220718)
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="SpaceShipRigidBody/spaceship/Lights"]
+[node name="SpotLight3D2" type="SpotLight3D" parent="RigidBody3D/VisualRotation/Lights"]
 transform = Transform3D(0.999962, 0.00872673, 6.89584e-09, -0.00667516, 0.764881, -0.644137, -0.00562121, 0.644112, 0.76491, 0, -2.69693, 4.68082)
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="SpaceShipRigidBody/spaceship/Lights"]
+[node name="SpotLight3D3" type="SpotLight3D" parent="RigidBody3D/VisualRotation/Lights"]
 transform = Transform3D(0.999962, 0.00872673, -5.83752e-09, 0.00386533, -0.442914, -0.896556, -0.007824, 0.896522, -0.442931, 0, -2.69693, -4.1081)
 
-[node name="Lasers" type="Node3D" parent="SpaceShipRigidBody/spaceship"]
+[node name="Lasers" type="Node3D" parent="RigidBody3D/VisualRotation"]
 
-[node name="RightLaser1" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="RightLaser1" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.579978, 0, -5.31984)
 
-[node name="RightLaserSound1" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/RightLaser1"]
+[node name="RightLaserSound1" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/RightLaser1"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="RightLaser2" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="RightLaser2" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.193, 0.44, -2.85781)
 
-[node name="RightLaserSound2" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/RightLaser2"]
+[node name="RightLaserSound2" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/RightLaser2"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="RightLaser3" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="RightLaser3" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.416, 1.54, 0.707721)
 
-[node name="RightLaserSound3" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/RightLaser3"]
+[node name="RightLaserSound3" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/RightLaser3"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="LeftLaser1" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="LeftLaser1" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.579513, 0, -5.31984)
 
-[node name="LeftLaserSound1" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/LeftLaser1"]
+[node name="LeftLaserSound1" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/LeftLaser1"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="LeftLaser2" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="LeftLaser2" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.193, 0.44, -2.85781)
 
-[node name="LeftLaserSound2" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/LeftLaser2"]
+[node name="LeftLaserSound2" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/LeftLaser2"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="LeftLaser3" type="Node3D" parent="SpaceShipRigidBody/spaceship/Lasers"]
+[node name="LeftLaser3" type="Node3D" parent="RigidBody3D/VisualRotation/Lasers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.416, 1.54, 0.707721)
 
-[node name="LeftLaserSound3" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Lasers/LeftLaser3"]
+[node name="LeftLaserSound3" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Lasers/LeftLaser3"]
 stream = ExtResource("4_unvdu")
 volume_db = -4.012
 
-[node name="Boosters" type="Node3D" parent="SpaceShipRigidBody/spaceship"]
+[node name="Boosters" type="Node3D" parent="RigidBody3D/VisualRotation"]
 
-[node name="BoosterRight" parent="SpaceShipRigidBody/spaceship/Boosters" instance=ExtResource("4_gam1i")]
+[node name="BoosterRight" parent="RigidBody3D/VisualRotation/Boosters" instance=ExtResource("4_gam1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0, 4.298)
 
-[node name="BoosterRightAudio" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Boosters/BoosterRight"]
+[node name="BoosterRightAudio" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Boosters/BoosterRight"]
 stream = ExtResource("5_w2lop")
 
-[node name="BoosterRight2" parent="SpaceShipRigidBody/spaceship/Boosters" instance=ExtResource("4_gam1i")]
+[node name="BoosterRight2" parent="RigidBody3D/VisualRotation/Boosters" instance=ExtResource("4_gam1i")]
 transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0.3, 1.45, 4.3)
 
-[node name="BoosterLeft" parent="SpaceShipRigidBody/spaceship/Boosters" instance=ExtResource("4_gam1i")]
+[node name="BoosterLeft" parent="RigidBody3D/VisualRotation/Boosters" instance=ExtResource("4_gam1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 0, 4.298)
 
-[node name="BoosterLeftAudio" type="AudioStreamPlayer3D" parent="SpaceShipRigidBody/spaceship/Boosters/BoosterLeft"]
+[node name="BoosterLeftAudio" type="AudioStreamPlayer3D" parent="RigidBody3D/VisualRotation/Boosters/BoosterLeft"]
 stream = ExtResource("5_w2lop")
 autoplay = true
 
-[node name="BoosterLeft2" parent="SpaceShipRigidBody/spaceship/Boosters" instance=ExtResource("4_gam1i")]
+[node name="BoosterLeft2" parent="RigidBody3D/VisualRotation/Boosters" instance=ExtResource("4_gam1i")]
 transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, -0.3, 1.45, 4.3)
 
 [node name="FollowCam" type="Camera3D" parent="."]
@@ -271,4 +272,4 @@ transform = Transform3D(1, 0, 0, 0, 0.951057, 0.309017, 0, -0.309017, 0.951057, 
 [node name="ShipHitAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_5xm1s")
 
-[connection signal="body_entered" from="SpaceShipRigidBody" to="SpaceShipRigidBody" method="_on_body_entered"]
+[connection signal="body_entered" from="RigidBody3D" to="RigidBody3D" method="_on_body_entered"]

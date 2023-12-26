@@ -16,7 +16,8 @@ extends Control
 @onready var story_fail_next_button: Button = $ColorRect/StoryFail/StoryFailNextButton
 
 
-func _ready() -> void:	
+func _ready() -> void:
+	_update_window_mode_button_label()
 	if game_state.is_game_over: 
 		menu.visible = false
 		if game_state.is_win:
@@ -48,10 +49,16 @@ func _on_quit_button_pressed() -> void:
 func _on_switch_fullscreen_window_button_pressed() -> void:
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		switch_fullscreen_window_button.text = "Enter Window Mode"
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	_update_window_mode_button_label()
+
+
+func _update_window_mode_button_label() -> void:
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
 		switch_fullscreen_window_button.text = "Enter Fullscreen"
+	else:
+		switch_fullscreen_window_button.text = "Enter Window Mode"
 
 
 func _process(_delta: float) -> void:
@@ -63,7 +70,7 @@ func _on_story_begin_next_button_pressed() -> void:
 	game_state.is_game_over = false
 	game_state.is_win = false
 	game_state.current_points = 0
-	get_tree().change_scene_to_file("res://level.tscn")
+	get_tree().change_scene_to_file("res://level/level.tscn")
 
 
 func _on_story_fail_next_button_pressed() -> void:

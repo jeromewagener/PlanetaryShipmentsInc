@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://b7w3dvmbbnthn"]
 
-[ext_resource type="Script" path="res://level.gd" id="1_xy6g5"]
+[ext_resource type="Script" path="res://level/level.gd" id="1_xy6g5"]
 [ext_resource type="Material" uid="uid://bnx0seohwheki" path="res://asteroid/attention_shader_material.tres" id="2_fue2w"]
 [ext_resource type="Texture2D" uid="uid://cl486qmrg2deq" path="res://textures/skybox-simple-8k.jpg" id="3_7msv6"]
-[ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/player.tscn" id="4_mxedw"]
+[ext_resource type="PackedScene" uid="uid://dwrmsc0rbglvo" path="res://spaceship/spaceship.tscn" id="4_mxedw"]
 [ext_resource type="FontFile" uid="uid://ntfboyq2uyil" path="res://fonts/BrunoAce-Regular.ttf" id="5_v1ywg"]
 [ext_resource type="AudioStream" uid="uid://3k34frl8l3kt" path="res://audio/psi_main_song.wav" id="6_vd5tv"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="7_hqm8a"]
@@ -88,7 +88,7 @@ environment = SubResource("Environment_q5fy8")
 transform = Transform3D(0.578798, -0.706219, 0.407736, 0, 0.5, 0.866026, -0.815471, -0.501253, 0.289399, 115.14, 12.1928, -28.6615)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("4_mxedw")]
+[node name="Spaceship" parent="." instance=ExtResource("4_mxedw")]
 unique_name_in_owner = true
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
