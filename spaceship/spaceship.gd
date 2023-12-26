@@ -33,14 +33,21 @@ func _process(delta: float) -> void:
 	if _is_controller_disabled or game_state.is_game_over:
 		return
 	
+	# By default, recenter spaceship and camera
 	visual_rotation.rotation = Vector3(0,0,0)
 	follow_cam.rotation = Vector3(0,0,0)
 	
-	# Shaky cam... :-)
+	# Random shaky cam per frame to increase realism... :-)
 	follow_cam.rotation.x += _random_number_generator.randf_range(-0.1, 0.1)
 	follow_cam.rotation.y += _random_number_generator.randf_range(-0.1, 0.1)
 	follow_cam.rotation.z += _random_number_generator.randf_range(-0.1, 0.1)
 	
+	# Handle Gamepad / Keyboard inputs
+	# Please note that we mainly manoever the RigidBody3D using forces
+	# As part of the RB3D children, we have the mesh of the spaceship, the lights, lasers, etc..
+	# In addition to moving the RigidBody3D, we also update the visual_rotation 
+	# (including the spaceship, lights, lasers...) accordingly
+	# This might not be intuitive but I wanted to try this approach
 	if Input.is_action_pressed("fly_up"):
 		apply_central_force(basis.y * delta * 20)
 		visual_rotation.rotation.x += 0.4
@@ -92,10 +99,8 @@ func _shoot_lasers(leftLaser, rightLaser) -> void:
 
 
 func _on_body_entered(_body: Node) -> void:
-	# Spaceship hit
+	# Spaceship hit by something (Asteroid)
 	_is_controller_disabled = true
 	ship_hit_audio.play()
 	game_state.is_game_over = true
 	gravity_scale = 2
-	#self.get_parent_node_3d().visible = false
-	#self.get_parent_node_3d().queue_free()

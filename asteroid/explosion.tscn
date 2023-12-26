@@ -29,7 +29,7 @@ color_ramp = SubResource("GradientTexture1D_k21ra")
 
 [sub_resource type="QuadMesh" id="QuadMesh_53igj"]
 
-[node name="asteroid-explosion" type="Node3D"]
+[node name="AsteroidExplosion" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_cks2i")

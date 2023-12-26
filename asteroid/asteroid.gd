@@ -7,11 +7,11 @@ const MAX_SPAWN_TORQUE : float = 20
 const ASTEROID_HIT_POINTS : int = 100
 @export var points_label: Label3D
 @export var attention_shader_material: ShaderMaterial
-@export var player: Node3D
-@onready var asteroid_explosion: Node3D = $"../asteroid-explosion"
+@export var spaceship: Node3D
+@onready var asteroid_explosion: Node3D = $"../AsteroidExplosion"
 @onready var asteroid_hit_sound: AudioStreamPlayer3D = $"../AsteroidHitSound"
 @onready var asteroid_destroyed_sound: AudioStreamPlayer3D = $"../AsteroidDestroyedSound"
-@onready var asteroid_model: MeshInstance3D = $Asteroid
+@onready var asteroid_mesh: MeshInstance3D = $AsteroidMesh
 @onready var game_state : GameState = get_node("/root/GameState")
 
 
@@ -27,8 +27,8 @@ func _on_body_entered(body: Node) -> void:
 	for group : String in body.get_groups():
 		if group == "LaserShotGroup":
 			asteroid_explosion.position = self.position
-			# Enable particle system
-			asteroid_explosion.get_child(0).emitting = true
+			# Activate particle system
+			asteroid_explosion.find_child("GPUParticles3D").emitting = true
 			asteroid_destroyed_sound.play()
 			game_state.current_points += ASTEROID_HIT_POINTS
 			points_label.text = "Points: " + str(game_state.current_points)
@@ -38,18 +38,21 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _process(_delta: float) -> void:
-	if player != null:
-		var playerPosition: Vector3 = player.get_child(0).position;
+	if spaceship != null:
+		var spaceshipPosition: Vector3 = spaceship.find_child("RigidBody3D").position;
 		
 		# If we are on a direct collision path with the asteroid
-		if (player != null 
-			and get_parent().position.x < playerPosition.x + 7.5 and get_parent().position.x > playerPosition.x - 7.5 
-			and get_parent().position.y < playerPosition.y + 7.5 and get_parent().position.y > playerPosition.y - 7.5):
+		if (spaceship != null 
+				and get_parent().position.x < spaceshipPosition.x + 7.5 
+				and get_parent().position.x > spaceshipPosition.x - 7.5 
+				and get_parent().position.y < spaceshipPosition.y + 7.5 
+				and get_parent().position.y > spaceshipPosition.y - 7.5
+			):
 			# Add attention shader
-			asteroid_model.material_overlay = attention_shader_material
+			asteroid_mesh.material_overlay = attention_shader_material
 		else:
 			# Remove attention shader
-			asteroid_model.material_overlay = null
+			asteroid_mesh.material_overlay = null
 
 
 func _on_asteroid_hit_sound_finished() -> void:

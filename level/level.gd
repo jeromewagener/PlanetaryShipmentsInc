@@ -27,9 +27,10 @@ func _process(_delta: float) -> void:
 func _spawn_asteroid() -> void:
 	for i in range(_wave_counter):
 		var asteroid_instance : Node3D = AsteroidScene.instantiate()
-		asteroid_instance.get_child(0).points_label = points_label
-		asteroid_instance.get_child(0).player = %Player
-		asteroid_instance.get_child(0).attention_shader_material = attention_shader_material
+		var asteroid_instance_rigidbody : RigidBody3D = asteroid_instance.find_child("RigidBody3D")
+		asteroid_instance_rigidbody.points_label = points_label
+		asteroid_instance_rigidbody.spaceship = %Player
+		asteroid_instance_rigidbody.attention_shader_material = attention_shader_material
 		# I tried scaling the asteroids but this does not work
 		# asteroid_instance.scale = asteroid_instance.scale * rng.randf_range(0.25, 2.5)
 		# See: https://github.com/godotengine/godot/issues/5734

@@ -231,7 +231,7 @@ theme = ExtResource("3_3xlwc")
 theme_override_font_sizes/font_size = 80
 text = "Back"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="MenuMusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_leull")
 autoplay = true
 

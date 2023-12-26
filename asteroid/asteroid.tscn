@@ -46,7 +46,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_brd0y")
 
-[node name="asteroid" type="Node3D"]
+[node name="Asteroid" type="Node3D"]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["AsteroidGroup"]]
 axis_lock_linear_y = true
@@ -58,7 +58,7 @@ script = ExtResource("1_7w72b")
 transform = Transform3D(13.125, 0, 0, 0, 13.125, 0, 0, 0, 13.125, 0, 0, 0)
 shape = SubResource("SphereShape3D_q6p6b")
 
-[node name="Asteroid" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="AsteroidMesh" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(2.08, 0, 0, 0, 2.08, 0, 0, 0, 2.08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ktmgg")
 skeleton = NodePath("")
@@ -70,6 +70,6 @@ volume_db = 46.286
 stream = ExtResource("4_gyrfi")
 volume_db = 41.881
 
-[node name="asteroid-explosion" parent="." instance=ExtResource("4_oe3wt")]
+[node name="AsteroidExplosion" parent="." instance=ExtResource("4_oe3wt")]
 
 [connection signal="body_entered" from="RigidBody3D" to="RigidBody3D" method="_on_body_entered"]
