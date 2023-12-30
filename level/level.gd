@@ -29,7 +29,7 @@ func _spawn_asteroid() -> void:
 		var asteroid_instance : Node3D = AsteroidScene.instantiate()
 		var asteroid_instance_rigidbody : RigidBody3D = asteroid_instance.find_child("RigidBody3D")
 		asteroid_instance_rigidbody.points_label = points_label
-		asteroid_instance_rigidbody.spaceship = %Player
+		asteroid_instance_rigidbody.spaceship = %Spaceship
 		asteroid_instance_rigidbody.attention_shader_material = attention_shader_material
 		# I tried scaling the asteroids but this does not work
 		# asteroid_instance.scale = asteroid_instance.scale * rng.randf_range(0.25, 2.5)
